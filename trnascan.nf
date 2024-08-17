@@ -22,7 +22,7 @@ process PARSE_SS {
     path ss_file
 
     output:
-    path "${ss_file.baseName}.parsed.tab.txt", emit: ss_tab
+    path "${ss_file.baseName}.ss.parsed.tab.txt", emit: ss_tab
 
     script:
     """
