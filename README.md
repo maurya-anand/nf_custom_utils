@@ -16,7 +16,7 @@ The pipeline consists of two main processes:
 
 ## Configuration
 
-The pipeline is configured using the [`nextflow.config`]. Below are the default parameters and profiles:
+The pipeline is configured using the [`nextflow.config`](nextflow.config). Below are the default parameters and profiles:
 
 ### Default Input Parameters
 
