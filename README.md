@@ -54,9 +54,20 @@ process {
 
 ## Usage
 
- ```bash
- nextflow run trnascan.nf
- ```
+```bash
+nextflow run trnascan.nf \
+    --genome genome.fa \
+    --out_prefix smn1 \
+    --outdir /opt/results
+```
+
+If declaring the params in the config file:
+
+```bash
+nextflow run trnascan.nf
+```
+
+
 
 ## Output
 
