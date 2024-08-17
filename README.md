@@ -1,1 +1,72 @@
-# nf_custom_utils
+# tRNAscan Workflow
+
+This repository contains a Nextflow pipeline for running tRNAscan-SE and parsing the results. The workflow is designed to identify tRNA genes in a given genome sequence and filter high-confidence predictions.
+
+## Requirements
+
+- [Nextflow](https://www.nextflow.io/)
+- [Docker](https://www.docker.com/)
+
+## Pipeline Overview
+
+The pipeline consists of two main processes:
+
+1. **TRNASCAN**: Runs tRNAscan-SE to identify tRNA genes in the input genome sequence.
+2. **PARSE_SS**: Parses the secondary structure output from tRNAscan-SE.
+
+## Configuration
+
+The pipeline is configured using the [`nextflow.config`]. Below are the default parameters and profiles:
+
+### Default Input Parameters
+
+```groovy
+params {
+    genome = "$baseDir/data/genome.fa"
+    out_prefix = "smn1"
+    outdir = "$baseDir/results"
+}
+```
+
+### Workflow Profiles
+
+```groovy
+profiles {
+  standard {
+    process.executor = "local"
+    docker.enabled = true
+  }
+}
+```
+
+### Custom Process Level Configuration
+
+```groovy
+process {
+  withName: TRNASCAN {
+    container = "quay.io/biocontainers/trnascan-se:2.0.7--pl526h516909a_0"
+  }
+  withName: PARSE_SS {
+    container = "perl:5.41"
+  }
+}
+```
+
+## Usage
+
+ ```bash
+ nextflow run trnascan.nf
+ ```
+
+## Output
+
+The results will be saved in the specified output directory (`$params.outdir`). The main outputs include:
+
+- tRNAscan results in `$params.outdir/tRNAscan_results`
+- Filtered and parsed secondary structure results in `$params.outdir/filtered_tRNAscan_ss_tab`
+
+## Conponents
+
+- [Nextflow](https://www.nextflow.io/)
+- [tRNAscan-SE](http://lowelab.ucsc.edu/tRNAscan-SE/)
+- [Docker](https://www.docker.com/)
