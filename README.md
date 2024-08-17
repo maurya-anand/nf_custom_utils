@@ -12,36 +12,27 @@ This repository contains a Nextflow pipeline for running tRNAscan-SE and parsing
 The pipeline consists of two main processes:
 
 1. **TRNASCAN**: Runs tRNAscan-SE to identify tRNA genes in the input genome sequence.
-2. **PARSE_SS**: Parses the secondary structure output from tRNAscan-SE.
+2. **PARSE_SS**: Parses the secondary structure output (`.ss`) file from tRNAscan-SE.
 
 ## Configuration
 
 The pipeline is configured using the [`nextflow.config`](nextflow.config). Below are the default parameters and profiles:
 
-### Default Input Parameters
-
 ```groovy
+/*  Default input parameters  */
 params {
     genome = "$baseDir/data/genome.fa"
     out_prefix = "smn1"
     outdir = "$baseDir/results"
 }
-```
-
-### Workflow Profiles
-
-```groovy
+/*  Workflow profiles  */
 profiles {
   standard {
     process.executor = "local"
     docker.enabled = true
   }
 }
-```
-
-### Custom Process Level Configuration
-
-```groovy
+/*  custom process level configuration  */
 process {
   withName: TRNASCAN {
     container = "quay.io/biocontainers/trnascan-se:2.0.7--pl526h516909a_0"
@@ -66,8 +57,6 @@ If declaring the params in the config file:
 ```bash
 nextflow run trnascan.nf
 ```
-
-
 
 ## Output
 
